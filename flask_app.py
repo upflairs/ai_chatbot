@@ -26,7 +26,24 @@ pairs = (
              'machine learning is a branch of AI',
              'machine learning is essential part of data science',  
          )    
+    ),
+    (r'(.*)about you(.*)',
+        (
+            'I am a Chatbot',
+            'Mr Sanam made me to help others',
+            'This is chatty',
+            'I\'ll talk on some other day for this'
+        )
+    ),
+    (r'(.*)you(.*)',
+        (
+            'I am a Chatbot',
+            'Mr Sanam made me to help others',
+            'This is chatty',
+            'I\'ll talk on some other day for this'
+        )
     )
+    
 )
 
 cb = Chat(pairs, reflections)
@@ -39,4 +56,7 @@ def index():
 @app.route("/get")
 def get_bot_response():
     userText = request.args.get('msg')
-    return str(cb.respond(userText))    
+    resp = str(cb.respond(userText))
+    if not resp or resp == 'None':
+        return "Sorry, I am not trained for this"
+    return resp
